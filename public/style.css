@@ -512,7 +512,7 @@ body {
 /* ==================== 바텀 시트 플레이어 ==================== */
 .bottom-sheet {
     position: fixed;
-    bottom: 0;
+    bottom: 70px;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
@@ -914,11 +914,6 @@ body {
     align-items: center;
     z-index: 900;
     transition: bottom 0.3s ease;
-}
-
-/* 미니 플레이어가 보일 때 네비게이션 위로 이동 */
-body.mini-player-visible .bottom-nav {
-    bottom: 80px; /* 미니 플레이어 높이만큼 */
 }
 
 .nav-item {
