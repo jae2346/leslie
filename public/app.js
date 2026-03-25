@@ -95,6 +95,7 @@ class PodcastPlayer {
         this.miniTitle = document.getElementById('miniTitle');
         this.miniAuthor = document.getElementById('miniAuthor');
         this.miniPlayBtn = document.getElementById('miniPlayBtn');
+        this.miniPlaylistBtn = document.getElementById('miniPlaylistBtn');
         this.miniProgressFill = document.getElementById('miniProgressFill');
 
         // 컨트롤
@@ -163,8 +164,13 @@ class PodcastPlayer {
             this.togglePlay();
         });
 
-        this.miniPlayer.addEventListener('click', () => {
+        document.getElementById('miniInfo').addEventListener('click', () => {
             this.expandToFullPlayer();
+        });
+
+        this.miniPlaylistBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.switchView('playlist');
         });
 
         // 드롭다운 컨트롤

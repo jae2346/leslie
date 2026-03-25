@@ -564,39 +564,48 @@ body {
 .mini-player {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 12px 20px 20px;
-    cursor: pointer;
+    gap: 16px;
+    padding: 16px 20px;
+    cursor: default;
+}
+
+.mini-thumbnail {
+    display: none !important;
 }
 
 .mini-info {
     flex: 1;
     min-width: 0;
+    cursor: pointer;
 }
 
 .mini-title {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 600;
     color: var(--text-primary);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     letter-spacing: -0.3px;
+    margin-bottom: 2px;
 }
 
 .mini-author {
-    font-size: 13px;
-    color: var(--text-tertiary);
-    margin-top: 2px;
+    display: none;
+}
+
+.mini-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .mini-play-btn {
-    width: 44px;
-    height: 44px;
-    background: var(--accent);
+    width: 36px;
+    height: 36px;
+    background: transparent;
     border: none;
-    border-radius: 50%;
-    color: white;
+    color: var(--text-primary);
     cursor: pointer;
     transition: all 0.2s;
     display: flex;
@@ -606,8 +615,8 @@ body {
 }
 
 .mini-play-btn:hover {
-    background: var(--accent-hover);
-    transform: scale(1.05);
+    color: var(--accent);
+    transform: scale(1.1);
 }
 
 .mini-play-btn:active {
@@ -615,8 +624,31 @@ body {
 }
 
 .mini-play-icon {
-    font-size: 20px;
+    font-size: 24px;
     display: block;
+}
+
+.mini-playlist-btn {
+    width: 36px;
+    height: 36px;
+    background: transparent;
+    border: none;
+    color: var(--text-tertiary);
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.mini-playlist-btn:hover {
+    color: var(--accent);
+    transform: scale(1.1);
+}
+
+.mini-playlist-btn:active {
+    transform: scale(0.95);
 }
 
 /* 미니 플레이어 진행 바 */
