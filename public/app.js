@@ -902,7 +902,7 @@ class PodcastPlayer {
 
         if (this.audioChunks[index]) {
             this.audio.src = this.audioChunks[index];
-            this.audio.playbackRate = parseFloat(this.speedControl.value);
+            this.audio.playbackRate = this.currentSpeed;
             await this.audio.play();
         }
     }
