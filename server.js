@@ -8,44 +8,32 @@ const fs = require('fs');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const USAGE_FILE = path.join(__dirname, 'usage.json');
+// USAGE_FILE 주석 처리 (Vercel에서는 파일 시스템이 유지되지 않음)
+// const USAGE_FILE = path.join(__dirname, 'usage.json');
 const MAX_CHARACTERS = 1000000; // 100만 글자
 
-// 사용량 읽기
+// 사용량 읽기 (Vercel용 - 항상 0 반환)
 function readUsage() {
-    try {
-        const data = fs.readFileSync(USAGE_FILE, 'utf8');
-        return JSON.parse(data);
-    } catch (error) {
-        return { month: '', characters: 0 };
-    }
+    return { month: new Date().toISOString().slice(0, 7), characters: 0 };
 }
 
-// 사용량 저장
+// 사용량 저장 (Vercel용 - 아무 작업 안 함)
 function writeUsage(usage) {
-    fs.writeFileSync(USAGE_FILE, JSON.stringify(usage, null, 2));
+    // Vercel에서는 파일 시스템에 쓸 수 없으므로 비활성화
+    console.log('Usage tracking disabled on Vercel:', usage);
 }
 
-// 현재 월 확인 및 초기화
+// 현재 월 확인 및 초기화 (Vercel용 - 항상 새 객체 반환)
 function checkAndResetUsage() {
-    const usage = readUsage();
-    const currentMonth = new Date().toISOString().slice(0, 7); // YYYY-MM
-
-    if (usage.month !== currentMonth) {
-        // 새로운 달이면 초기화
-        const newUsage = { month: currentMonth, characters: 0 };
-        writeUsage(newUsage);
-        return newUsage;
-    }
-
-    return usage;
+    const currentMonth = new Date().toISOString().slice(0, 7);
+    return { month: currentMonth, characters: 0 };
 }
 
-// 사용량 추가
+// 사용량 추가 (Vercel용 - 로그만 출력)
 function addUsage(characters) {
     const usage = checkAndResetUsage();
     usage.characters += characters;
-    writeUsage(usage);
+    console.log(`TTS 사용: ${characters}자 (누적: ${usage.characters}자)`);
     return usage;
 }
 
@@ -634,13 +622,18 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// 서버 시작
-app.listen(PORT, () => {
-    console.log(`\n✅ 서버가 시작되었습니다!`);
-    console.log(`🌐 브라우저에서 열기: http://localhost:${PORT}`);
-    console.log(`\n사용 방법:`);
-    console.log(`1. 브라우저에서 위 주소를 엽니다`);
-    console.log(`2. 칼럼 URL을 입력합니다`);
-    console.log(`3. "불러오기" 버튼을 클릭합니다`);
-    console.log(`4. 재생 버튼(▶)을 눌러 듣습니다\n`);
-});
+// 서버 시작 (로컬 개발용)
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(PORT, () => {
+        console.log(`\n✅ 서버가 시작되었습니다!`);
+        console.log(`🌐 브라우저에서 열기: http://localhost:${PORT}`);
+        console.log(`\n사용 방법:`);
+        console.log(`1. 브라우저에서 위 주소를 엽니다`);
+        console.log(`2. 칼럼 URL을 입력합니다`);
+        console.log(`3. "불러오기" 버튼을 클릭합니다`);
+        console.log(`4. 재생 버튼(▶)을 눌러 듣습니다\n`);
+    });
+}
+
+// Vercel을 위한 export
+module.exports = app;
