@@ -19,20 +19,6 @@
 npm install
 ```
 
-### 2. API 키 설정
-
-`.env` 파일에 OpenAI API 키를 설정합니다:
-
-```bash
-OPENAI_API_KEY=your-api-key-here
-PORT=3000
-```
-
-**API 키 받는 방법:**
-1. https://platform.openai.com/signup 에서 계정 생성
-2. https://platform.openai.com/api-keys 에서 API 키 생성
-3. 생성된 키를 `.env` 파일에 입력
-
 ### 3. 서버 실행
 
 ```bash
